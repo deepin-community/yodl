@@ -1,0 +1,21 @@
+<STARTDOC>
+macro(bind(text))
+(Generate a binding character (non-breaking space) after text.)
+<>
+
+DEFINEMACRO(bind)(1)(\
+<html sgml xml>
+    NOTRANS(&nbsp;)\
+<latex>
+    ARG1\
+    +CHAR(~)\
+<man ms>
+    ARG1\
+    +NOTRANS(\ )\
+<texinfo>
+    ARG1\
+    +NOTRANS(@w{ })\
+<else>
+    ARG1 \
+<>
+)

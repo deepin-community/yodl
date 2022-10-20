@@ -1,0 +1,11 @@
+<STARTDOC>
+macro(subsubsect(title))
+ (Starts a sub-subsection.
+ In html tt(attrib) macro applies to the tt(<h4>) tag.
+ )
+<>
+
+DEFINEMACRO(subsubsect)(1)(\
+    XXsubsubsectCounter()\
+    XXsubsubsect(ARG1)\
+)

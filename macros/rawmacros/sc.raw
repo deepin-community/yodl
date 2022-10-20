@@ -1,0 +1,30 @@
+<STARTDOC>
+macro(sc(text))
+    (Set tt(text) in the tt (code) font, using small caps.
+ In html the tt(attrib) macro is not supported, while the code
+section is embedded in a tt(<div style="font-size: 90%">) section.
+ )
+<>
+
+DEFINEMACRO(sc)(1)(\
+<html>
+    NOTRANS(<div style="font-size: 90%"><code>)\
+    UPPERCASE(ARG1)(0)\
+    NOTRANS(</code></div>)\
+<latex>
+    NOTRANS(\textsc{)ARG1+CHAR(})\
+<sgml>
+    NOTRANS(<tt>)\
+    ARG1\
+    +NOTRANS(</tt>)\
+<texinfo>
+    tt(UPPERCASE(ARG1)(0))\
+<xml>
+    NOTRANS(<font size=-1><pre>)\
+    NOEXPAND(ARG1)\
+    NOTRANS(</pre></font>)\
+<else>
+    ARG1\
+<>
+)
+

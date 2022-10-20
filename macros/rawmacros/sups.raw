@@ -1,0 +1,26 @@
+<STARTDOC>
+macro(sups(text))
+ (Sets text in superscript in supporting formats
+ In html the tt(attrib) macro is recognized by the tt(<sup>) tag.
+
+For em(sub)scripting, the tt(subs) macro can be used.
+ )
+<>
+
+DEFINEMACRO(sups)(1)(\
+<html>
+    XXtag(sup)\
+    ARG1\
+    +NOTRANS(</sup>)\
+<xml>
+    NOTRANS(<sup>)\
+    ARG1\
+    +NOTRANS(</sup>)\
+<latex>
+    NOTRANS($^{)\
+    ARG1\
+    +NOTRANS(}$)\
+<texinfo txt>
+    ^ARG1\
+<>
+)

@@ -1,0 +1,17 @@
+tt(DEFINECOUNTER) creates a new counter. This builtin function expects two
+arguments: the name of the counter and an additive expression whose value is
+used to initialize the counter.
+    
+The additive expression may not contain blank spaces and may use + and -
+operators, its operands may either be integral numeric values or names of
+(defined) counters.  The resulting value can be negative; in that case, a
+value is subtracted from the destination counter.
+
+    Examples:
+        verb(
+    DEFINECOUNTER(year)(1950)
+    DEFINECOUNTER(nTimes)(year+12)\CHAR(/)/ initializes nTimes to 1962
+        )
+
+    See also section ref(COUNTERS) and the tt(USECOUNTER) and tt(ADDTOCOUNTER)
+builtin functions.

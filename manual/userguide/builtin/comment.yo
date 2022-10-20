@@ -1,0 +1,24 @@
+The tt(COMMENT) function defines one parameter list. The text that is passed
+as argument is treated as comment. I.e., it is ignored; it is not copied to
+the final output file.
+
+As an alternative to (short) tt(COMMENT) the triplet tt(\)tt(//) can be
+used. It starts `end of line' comment, ignoring all characters on a line
+starting at tt(\)tt(//) up to the first non-blank character encountered on the
+next line. If the next line's first non-blank characters are tt(\)tt(//), then
+that begins another end of line comment, which will therefore also be skipped.
+
+To actually write
+    tt(\)tt(//) or, using the current font: nop(\)//
+in a yodl-converted document, write, e.g., 
+    tt(tt(\)tt(//)) or, using the current font: nop+nop((/))// 
+in a yodl-source file, and write tt(\CHAR)tt((/)/) in tt(verb) sections.
+
+Example:
+        verb(
+    Hello world\CHAR(/)/ producess Hello world, skipping the rest
+        \CHAR(/)/ this line is completely ignored
+       s\CHAR(/)/ at this point Hello worlds has been produced.
+        )
+
+

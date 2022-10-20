@@ -1,0 +1,11 @@
+<STARTDOC>
+macro(addntosymbol(symbol)(n)(text))
+(Adds tt(text) tt(n) times to tt(symbol). The value tt(n) may also be the name
+of a defined counter (which is not modified).
+)
+<>
+
+DEFINEMACRO(addntosymbol)(3)(\
+    SETCOUNTER(XXx)(ARG2)\
+    XXaddntosymbol(ARG1)(ARG3)\
+)

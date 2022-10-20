@@ -1,0 +1,8 @@
+<COMMENT>
+    Sets a html tag, possibly adding attributes
+<>
+
+DEFINEMACRO(XXtag)(1)(\
+    NOTRANS(<)ARG1 attribinsert()\
+    NOTRANS(>)\
+)\

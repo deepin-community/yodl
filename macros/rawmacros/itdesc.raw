@@ -1,0 +1,28 @@
+<STARTDOC>
+macro(itdesc(itemname)(contents))
+ (Starts an item and its description in a description list. Its name is
+tt(itemname), the contents of the item is defined by tt(contents). The
+tt(itemname) is defined by using the tt(dit) macro. 
+
+With tt(html) conversions the contents are surrounded by tt(<dd>) and
+tt(</dd>) tags, resulting in contents which are indented relative to the
+itemname. When the tt(attrib) macro is used it is applied to the itemname
+(tt(dt)-tags). 
+
+With other conversions the tt(contents) are quoted (as if using
+tt(quote(contents))).
+ )
+<>
+
+DEFINEMACRO(itdesc)(2)(\
+<html>
+    XXtag(dt)ARG1+NOTRANS(</dt>)XXnl()\
+        NOTRANS(<dd>)ARG2+NOTRANS(</dd>)\
+<else>
+    dit(ARG1)XXnl()\
+    quote(ARG2)\
+<>
+)
+
+
+

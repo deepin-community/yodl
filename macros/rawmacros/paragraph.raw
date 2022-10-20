@@ -1,0 +1,35 @@
+<STARTDOC>
+macro(paragraph(title))
+ (Starts a paragraph. This level of sectioning is not numbered, in
+contrast to `higher' sectionings (duh, corresponds to subparagraph in latex).
+  In html tt(attrib) macro applies to the tt(<p>) tag.
+ )
+<>
+
+DEFINEMACRO(paragraph)(1)
+(
+<html>
+    XXtag(p)NOTRANS(<strong>)\
+    ARG1\
+    +NOTRANS(</strong></p>)\
+<latex>
+    NOTRANS(\subparagraph{)\
+    ARG1\
+    +CHAR(})\
+<texinfo txt>
+    ARG1   \
+<man>
+    XXroffcmd(.SH)(NOTRANS(")ARG1+NOTRANS("))()()\
+<ms>
+    XXroffcmd(.SH)()(ARG1)(.PP)\
+<sgml>
+    NOTRANS(<sect4>)\
+    ARG1  \
+<xml>
+    XXmlendp()\
+    XXmlbeginp()\
+    bf(ARG1)\
+    XXclosep()\
+    XXopenp()\
+<>
+)

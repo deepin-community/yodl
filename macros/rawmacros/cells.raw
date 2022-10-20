@@ -1,0 +1,62 @@
+<STARTDOC>
+macro(cells(nColumns)(contents))
+ (Set a table cell over tt(nColumns) columns. With LaTeX() and xml the
+information in the combined cells is centered. 
+
+With man/ms conversions the tt(cells()) macro simply calls the tt(cell())
+macro, but here the tt(setmanalign()) macro can be used to determine the
+alignment of multiple cells.
+
+With html the macro tt(attrib) can be used, but when it contains a tt(style)
+specification the macro's default tt(style="text-align: center") is ignored
+(but it can optionally be specified using the tt(attrib) macro).
+
+Instead of using tt(cells) in tt(table), consider using tt(tnc) in tt(tbl).
+ )
+<>
+
+DEFINEMACRO(cells)(2)(\
+    ADDTOCOUNTER(XXcol)(ARG1)\
+<html>
+    XXtag(td colspan=ARG1 style="text-align: center")\
+    ARG2\
+    +NOTRANS(</td>)\
+    +IFEQUAL(XXcol)(XXtablewidth)(
+        XXnl()\
+    )()\
+<latex>
+    NOTRANS(\multicolumn{)\
+    ARG1\
+    +NOTRANS(}{c}{)\
+    ARG2\
+    +CHAR(})\
+    +XXifneq(XXcol)(XXtablewidth)(\
+        NOTRANS( & )\
+    )\
+<man ms>
+    ADDTOCOUNTER(XXcol)(-1)\
+    cell(ARG2)\
+<texinfo>
+    \ ARG1 \
+    IFEQUAL(XXcol)(XXtablewidth)
+    (\
+        XXnl()\
+        NOTRANS(@tab )\
+    )()\
+<txt>
+    nop() \
+    ARG1 \
+    IFEQUAL(XXcol)(XXtablewidth)
+    (\
+        XXnl()\
+    )()\
+<xml>
+    NOTRANS(<td colspan=)\
+    ARG1\
+    +NOTRANS( align=center>)\
+    ARG2\
+    NOTRANS(</td>)\
+    XXnl()\
+<>
+)
+

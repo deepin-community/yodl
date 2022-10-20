@@ -1,0 +1,58 @@
+<STARTDOC>
+macro(columnline(from)(through))
+(Sets a horizontal line over some columns in a row. Note that tt(columnline)
+defines a row by itself, consisting of just a horizontal line spanning some of
+its columns, rather than the table's full width, like tt(rowline). The two
+arguments represent column numbers. It is the responsibility of the author to
+make sure that the tt(from) and tt(through) values are sensible. I.e., 
+        verb(
+    1 <= from <= through <= ncolumns
+        )
+To set a horizontal line in just one column select tt(through) equal to
+tt(from).
+
+bf(Note): this macro cannot be used if multiple lines must be set in one
+row. In those cases the macros tt(tline, tskip), and tt(tendline) should be
+used. 
+
+Instead of using tt(columnline) in tt(table), consider using tt(tline) in
+tt(tbl).
+)
+<>
+
+DEFINEMACRO(columnline)(2)(\
+    SETCOUNTER(XXx)(ARG1)\
+<html xml>
+    ADDTOCOUNTER(XXx)(-1)\
+    NOTRANS(<tr>)\
+    XXifnzero(XXx)
+    (\
+        NOTRANS(<td colspan=)\
+        COUNTERVALUE(XXx)\
+        NOTRANS(</td>)\
+    )\
+    SETCOUNTER(XXx)(ARG2-ARG1+1)\
+    NOTRANS(<td colspan=)\
+    COUNTERVALUE(XXx)\
+    NOTRANS(><hr/></td></tr>)
+    XXnl()\
+<latex>
+    NOTRANS( \cline{)\
+    ARG1-ARG2\
+    +CHAR(})\
+    XXnl()\
+<man ms>
+    XXifneq(XXx)(1)(\
+        ADDTOSYMBOL(XXtablealign)(c)\
+        ADDTOCOUNTER(XXx)(-2)\
+        addntosymbol(XXtablealign)(XXx)(s)\
+    )
+    SETCOUNTER(XXx)(ARG2-ARG1)\
+    ADDTOSYMBOL(XXtablealign)(+NOTRANS(-))\
+    addntosymbol(XXtablealign)(XXx)(s)\
+    ADDTOSYMBOL(XXtablealign)(+XXnl())\
+    ADDTOSYMBOL(XXroffcontents)(XXroffcmd()()()())\
+<else>
+    XXnl()\
+<>
+)

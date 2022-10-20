@@ -1,0 +1,87 @@
+The Yodl program has several built-in macros that can be used to send literal
+text to the output file. The macros are listed in the chapter ref(BUILTIN) and
+are briefly described here:
+    itemization(
+    it() tt(CHAR) takes one argument: the ASCII number of a 
+character or the character itself. The character is sent to the output 
+file without being translated with the currently active character 
+translation table.
+    it() tt(NOTRANS) takes one argument: the text in question. The 
+text is neither parsed (i.e., macros in it are not expanded), nor 
+translated with the current character translation table.
+    nl()    
+The tt(NOTRANS) macro is conceptually like a series of tt(CHAR) macros.
+    it() tt(NOEXPAND) takes one argument: the text in question. The 
+text is not parsed, but it bf(is) translated with the current character 
+translation table.
+    it() tt(POPSUBST) takes no argument, and restores the tt(SUBST)
+interpretation status that was active just before the most recently called
+tt(PUSHSUBST) builtin macro call.
+    it() tt(PUSHSUBST) takes one argument: 0 or a non-zero value (commonly
+1). Following tt(PUSHSUBSTS(0) SUBST)-definitions are ignored; following
+tt(PUSHSUBSTS(1) SUBST)-definitions are used.
+    )
+    To illustrate the need for the distinction between tt(NOTRANS) and 
+tt(NOEXPAND), consider the following. The tt(HTML) converter (described in  
+chapter ref(MACROPACKAGE)) must be able to send HTML commands to the output 
+file, but must also be able to send literal text (e.g., a source file 
+listing). The HTML commands of course must be neither translated with any 
+character table, nor must they be expanded in regard to macros. In contrast, a 
+source file listing must be subject to character translations: the tt(&), 
+tt(<) and tt(>) characters can cause difficulties. Two possible macros for a 
+HTML converter are:
+        verb(
+    COMMENT(--- htmlcommand(cmd) sends its argument as a HTML command 
+                to the output ---)
+    DEFINEMACRO(htmlcommand)(1)(NOTRANS(ARG1))
+        
+    COMMENT(--- verb(listing) sends the listing to the output ---)
+    DEFINECHARTABLE(list)(
+        '&'     =   "&amp;"
+        '<'     =   "&lt;"
+        '>'     =   "&gt;"
+    )
+    
+    DEFINEMACRO(verb)(1)(
+        USECHARTABLE(list)
+        NOTRANS(<listing>)
+        NOEXPAND(ARG1)
+        NOTRANS(</listing>)
+        USECHARTABLE(standard)
+    )
+        )
+    In this example it is assumed that a character translation table
+tt(standard) exists, defining the `normal' translations. This table is
+re-activated in the tt(verb) macro.
+
+    The currently defined tt(verb) macro for, e.g., html conversion looks like
+this:
+    verb(
+    DEFINEMACRO(verb)(1)(
+        PUSHSUBST(0)
+        NOTRANS(<pre>)
+        XXnl()
+        NOEXPAND(ARG1)
+        XXnl()
+        NOTRANS(</pre>)
+        XXnl()
+        POPSUBST()
+    )
+    )
+    Here, the surrounding tt(PUSHSUBST(0)) and tt(POPSUBST()) pair prevent the
+interpretation of multi-char tt(SUBST) definitions like 
+        verb(
+    SUBST(\"e)(+NOTRANS(&euml;))
+        )
+    inside tt(verb) environments, causing unexpected translations in pieces of
+code like
+        verb(
+    cout << "\"evil\" code\n";
+        )
+    which, if the tt(PUSHSUBST) command isn't used,  is converted to 
+        verb(
+    cout << "&eacute;vil\" code\n";
+        )
+    
+
+

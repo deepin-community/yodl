@@ -1,0 +1,12 @@
+Description: Disable clearing of terminal (`tput clear`) during build
+Forwarded: not-needed
+Origin: vendor
+Author: tony mancill <tmancill@debian.org>
+--- a/verbinsert/icmconf
++++ b/verbinsert/icmconf
+@@ -1,4 +1,4 @@
+-#define CLS
++//#define CLS
+ #define LIBRARY             "modules"
+ #define MAIN                "main.cc"
+ #define SOURCES             "*.cc"

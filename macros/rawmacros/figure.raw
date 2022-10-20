@@ -1,0 +1,98 @@
+<STARTDOC>
+macro(figure(file)(caption)(label))
+ (Sets the picture in tt(file) as a figure in the current document, using the
+descriptive text tt(caption). The tt(label) is defined as a placeholder for
+the figure number and can be used in a corresponding tt(ref) statement. Note
+that the tt(file) must be the filename without extension: By default, Yodl
+will supply tt(.gif) when in HTML mode, or tt(.ps) when in LaTeX mode. Figures
+in other modes may not (yet) haven been implemented.
+
+When converting to html, this macro uses three attribute-strings (if
+available). The string pushed first using an attrib-call defines the
+attributes for its tt(<figcaption>) html-markup; the string pushed next defines
+the attributes for its tt(<img>) html-markup; the string pushed last defines
+the attributes for its tt(<figure>) html-markup. The tt(figure) macro's html
+output is organized like this:
+    verb(
+    <figure -attrib-string pushed last (if any)>
+        <img ... -attrib-string pushed last but one>
+        <figcaption -attrib-string pushed 2nd to last>
+            ...
+        </figcaption>
+    </figure>
+    )
+Starting with Yodl 3.07.00 no tt(alt="Figure # is shown here...") attribute is
+defined anymore for the tt(img) markup: an tt(alt)-attribute can easily be
+defined at the last attrib-call, using tt(getfigurestring()) to obtain
+tt(Figure) or its language-specific translation, and
+tt(COUNTERVALUE(XXfigurecounter)) to obtain the order-number of the figure
+shown in the next tt(figure)-macro call.
+ )
+<>
+
+DEFINEMACRO(figure)(3)(\
+<html>
+    XXsetlastnumber(COUNTERVALUE(XXfigurecounter))\
+    NOTRANS(<p>)\
+    label(ARG3)XXtag(figure)XXnl()\
+        NOTRANS(<img src="ARG1)SYMBOLVALUE(XXfigureext)NOTRANS(") \
+            attribinsert()NOTRANS(>)XXnl()\
+        XXtag(figcaption)getfigurestring() \
+            SYMBOLVALUE(XXlastnumber): ARG2+NOTRANS(</figcaption>)XXnl()\
+    NOTRANS(</figure></p>)XXnl()\
+    ADDTOCOUNTER(XXfigurecounter)(1)\
+<latex>
+    NOTRANS(\begin{figure}[tbp])\
+    XXnl()\
+    NOTRANS(\centerline{\epsffile{)ARG1+SYMBOLVALUE(XXfigureext)\
+    NOTRANS(}})\
+    XXnl()\
+    NOTRANS(\caption{\label{ARG3})ARG2+CHAR(})\
+    XXnl()\
+    NOTRANS(\end{figure})\
+<txt man ms>
+    XXsetlastnumber(COUNTERVALUE(XXfigurecounter))\
+    label(ARG3)
+
+    ------------------------------------------------------------------
+    Insert Figure SYMBOLVALUE(XXlastnumber)
+    (ARG2)
+    about here (file: ARG1)
+    ------------------------------------------------------------------\
+    ADDTOCOUNTER(XXfigurecounter)(1)\
+<xml>
+    XXsetlastnumber(COUNTERVALUE(XXfigurecounter))\
+    label(ARG3)\
+    XXmlEndBlock()\
+    XXmlPushContext(outer)\
+    NOTRANS(\
+        <s:picture>\
+        <s:img src="\
+    )\
+    ARG1\
+    +SYMBOLVALUE(XXfigureext)\
+    NOTRANS(\
+        "/>\
+        <s:caption>
+        <s:text>\
+    )\
+    getfigurestring() SYMBOLVALUE(XXlastnumber): ARG2\
+    +NOTRANS(\
+        </s:text>\
+        </s:caption>\
+        </s:picture>\
+    )\
+    XXmlPopContext()\
+    XXmlBeginBlock()\
+    ADDTOCOUNTER(XXfigurecounter)(1)\
+<else>
+    WARNING(NOEXPAND(figure()) not supported in this format)\
+<>
+)
+
+
+
+
+
+
+

@@ -1,0 +1,80 @@
+void _man(string source, string nr, int usePath, string macroBase)
+{
+    string manDst;
+    string manHtmlDst;
+    string nrs;
+    string includes;
+
+    nrs = (string)nr;
+
+    manDst = g_install + MAN + "/man" + nrs + "/" + source + "." + nrs;
+    manHtmlDst = g_wip + "/man/" + source + "." + nrs + ".html";
+
+    includes = " -I.:" + g_wip + ":" + macroBase;
+
+    run("scripts/configreplacements " +
+                        "man/" + source + ".in " + 
+                        g_wip + "/manyo.yo " +
+                        macroBase);
+
+    // manyo.yo is the file to convert to a man-page
+    
+    if (usePath)                // use yodl/yodlpost via yodl2man
+    {
+        putenv("YODL_BIN=" + g_cwd + g_install + BIN);
+        run("yodl2man" + includes +
+                        " -o" + manDst + " " 
+                        "manyo");
+        run("yodl2html" + includes +
+                        " -o" + manHtmlDst + " " 
+                        "manyo");
+    }
+    else
+    {
+        run(g_install + BIN + "/yodl" + includes +
+                            " -o" + g_wip + "/out man manyo");
+
+        run(g_install + BIN + "/yodlpost " 
+                            + g_wip + "/out.idx " + g_wip + "/out " + manDst);
+
+        run(g_install + BIN + "/yodl" + includes +
+                            " -o" + g_wip + "/outhtml html manyo");
+
+        run(g_install + BIN + "/yodlpost " 
+                            + g_wip + "/outhtml.idx " + g_wip + "/outhtml " + 
+                                                                manHtmlDst);
+    }
+}
+
+void manExit(string path)
+{
+    int usePath;
+    string macroBase;
+
+    usePath = path == "path";
+    macroBase = g_wip + "/macros";
+
+                                        // where to install the man-pages
+    md(g_install + MAN + "/man1 " + g_install + MAN + "/man7");
+                                      
+    md(g_wip + "/man");                 // where to install the html man-pages
+
+
+    _man("yodl",            "1", usePath, macroBase);
+    _man("yodlpost",        "1", usePath, macroBase);
+    _man("yodlconverters",  "1", usePath, macroBase);
+    _man("yodlverbinsert",  "1", usePath, macroBase);
+    _man("yodlstriproff",   "1", usePath, macroBase);
+
+
+    _man("yodlbuiltins",    "7", usePath, macroBase);
+    _man("yodlmanpage",     "7", usePath, macroBase);
+    _man("yodlletter",      "7", usePath, macroBase);
+    _man("yodlmacros",      "7", usePath, macroBase);
+    _man("yodltables",      "7", usePath, macroBase);
+
+    exit(0);
+}
+
+
+

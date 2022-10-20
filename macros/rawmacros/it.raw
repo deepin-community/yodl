@@ -1,0 +1,24 @@
+<STARTDOC>
+macro(it())
+(Indicates an item in an itemized list. Items in tt(it) macros are
+arguments of tt(itemization) macros.)
+<>
+
+DEFINEMACRO(it)(0)(\
+<html>
+    NOTRANS(<li>)\
+<latex>
+    NOTRANS(\item )\
+<texinfo>
+    NOTRANS(@item )\
+<man ms>
+    XXroffcmd(.IP)(o )()()\
+<txt>
+    NOTRANS(o )\
+<sgml>
+    NOTRANS(<item>)\
+<xml>
+    XXmlBeginList()\
+<>
+)
+

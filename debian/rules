@@ -1,0 +1,64 @@
+#!/usr/bin/make -f
+# Made with the aid of debhelper by by Joey Hess,
+# based on the sample debian/rules file for GNU hello by Ian Jackson.
+#
+# This is free software; see the GNU General Public Licence
+# version 2 or later for copying conditions.  There is NO warranty.
+#
+# Modified to suit yodl-2.00 by Frank B. Brokken <f.b.brokken@rc.rug.nl>
+
+SHELL = /bin/sh
+
+export DEB_BUILD_HARDENING=1
+
+# For reproducible builds of documentation.
+# Also see https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=950603
+export FORCE_SOURCE_DATE=1
+
+# Uncomment this to turn on verbose mode.
+export DH_VERBOSE=1
+
+export CFLAGS = $(shell dpkg-buildflags --get CFLAGS)
+export CFLAGS += -Wall -D_FORTIFY_SOURCE=2
+
+export CXXFLAGS = $(shell dpkg-buildflags --get CXXFLAGS)
+export CXXFLAGS += --std=c++2a -Wall -D_FORTIFY_SOURCE=2
+
+export CXX = g++
+
+export LDFLAGS = $(shell dpkg-buildflags --get LDFLAGS) -Wl,-z,now
+
+unexport NAME
+
+%:
+	dh $@
+
+override_dh_auto_clean:
+	./build clean
+	dh_auto_clean
+
+override_dh_auto_build-arch:
+	# Compile the package:
+	./build programs
+	./build macros
+	./build man
+	dh_auto_build
+
+override_dh_auto_build-indep: override_dh_auto_build-arch
+	./build manual
+	dh_auto_build -i
+
+override_dh_auto_install-arch:
+	dh_auto_install
+	# Install the package below debian/yodl:
+	./build install programs    debian/yodl
+	./build install macros      debian/yodl
+	./build install man         debian/yodl
+	./build install docs        debian/yodl
+
+override_dh_auto_install-indep:
+	./build install manual debian/yodl-doc
+
+print-version:
+	@@echo "Debian version:                  $(DEBVERSION)"
+	@@echo "Upstream version:                $(UPVERSION)"

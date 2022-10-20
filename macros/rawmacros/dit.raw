@@ -1,0 +1,29 @@
+<STARTDOC>
+macro(dit(itemname))
+ (Starts an item named tt(itemname) in a description list. The list should be
+used in tt(description) macros. With tt(html) conversions the
+contents of a description item is separated from the item itself. The tt(dit)
+macro only defines the item, and not the description itself. This macro sets
+the item in bold-face (`strong' font). The macro tt(itdesc), available since
+Yodl 3.05, can be used to defines an item em(and) its description, using its
+suggested format (i.e., indenting the description relative to the item).
+ )
+<>
+
+DEFINEMACRO(dit)(1)(\
+<html>
+    XXtag(dt)NOTRANS(<strong>)ARG1+NOTRANS(</strong></dt>)\
+<latex>
+    NOTRANS(\item[)ARG1+CHAR(])\
+<texinfo>
+    NOTRANS(@item ) ARG1\
+<txt>
+    CHAR(o) ARG1\
+<man ms>
+    XXroffcmd(.IP)(NOTRANS(")ARG1+NOTRANS("))()()\
+<sgml>
+    NOTRANS(<tag>)ARG1+NOTRANS(</tag>)\
+<xml>
+    it() ARG1\
+<>
+)

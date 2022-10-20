@@ -1,0 +1,76 @@
+void _manual(string conversion, int usePath, string macroBase)
+{
+    string includes;
+    string manualDestination;
+
+    includes = " -I.:" + g_wip + ":" + macroBase + ":manual";
+
+    manualDestination =  g_install + DOCDOC;
+
+    if (usePath)
+    {
+        putenv("YODL_BIN=" + g_cwd + g_install + BIN);
+        run("yodl2" + conversion + includes + 
+            " -o" + manualDestination +
+            " manual");
+    }
+    else
+    {
+        run(g_install + BIN + "/yodl" + includes + 
+                            " -o" + g_wip + "/out " +
+                            conversion + " manual");
+        if (conversion == "latex")
+            run("mv " + g_wip + "/out " + g_install + DOCDOC + "/yodl.latex");
+        else
+        {
+            run(g_install + BIN + "/yodlpost "
+                        + g_wip + "/out.idx " + g_wip + "/out " +
+                        "yodl." + conversion);
+            run("mv yodl*." + conversion + " " + manualDestination);
+        }
+    }
+
+    if (conversion == "latex")
+    {
+        chdir(g_install + DOCDOC);
+
+        runP(P_NOCHECK, "latex yodl.latex");
+        runP(P_NOCHECK, "latex yodl.latex");
+        run("latex yodl.latex");
+        run("rm yodl.aux yodl.log yodl.toc");
+
+        run("dvips -o yodl.ps yodl.dvi");
+        run("ps2pdf yodl.ps yodl.pdf");
+        chdir(g_cwd);
+    }
+}
+
+void manualMayExit(string variant, 
+                    string path, int doExit) // doExit == 0, then only html
+{
+    int idx;
+    int usePath;
+    string macroBase;
+
+    usePath = path == "path";
+    macroBase = g_wip + "/macros";
+
+    md(g_install + DOCDOC);
+
+    if (variant != "latex")
+        _manual("html", usePath, macroBase);
+
+    if (doExit)
+    {
+        if (variant == "")
+            _manual("txt", usePath, macroBase);
+        if (variant != "html")
+            _manual("latex", usePath, macroBase);
+        exit(0);
+    }
+}
+
+void manualExit(string variant, string path)
+{
+    manualMayExit(variant, path, 1);
+}

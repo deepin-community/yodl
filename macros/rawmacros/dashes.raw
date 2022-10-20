@@ -1,0 +1,31 @@
+<STARTDOC>
+macro(dashes())
+    (Inserts two dashes in teletype font, and prevents them from being
+expanded.  
+
+ In html the tt(attrib) macro is recognized by the tt(<code>) tag that is used
+to embed the two dashes.
+ )
+<>
+
+DEFINEMACRO(dashes)(1)(\
+PUSHSUBST(0)\
+<html>
+    XXtag(code)\
+    NOTRANS(--</code>)\
+<latex>
+    NOTRANS(\texttt{--})\
+<texinfo>
+    NOTRANS(@code{--})\
+<man ms>
+    NOTRANS(\f)\
+    CHAR(40)CW\
+    NOTRANS(--\fP)\
+<sgml xml>
+    NOTRANS(<tt>--</tt>)\
+<else>
+    NOTRANS(--)\
+<>
+POPSUBST()\
+)
+

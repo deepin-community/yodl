@@ -1,0 +1,19 @@
+The tt(IFCOUNTER) function tests whether its first argument is the name of a
+counter. If the name is the name of a counter, the second argument is
+evaluated, else, the third argument is evaluated. All three arguments (the
+name, the true list and the false list) must be present; though the true list
+and/or the false list may be empty.
+
+    Example:
+        verb(
+    IFCOUNTER(nested)(\ 
+        `nested' is the name of a counter
+    )(\ 
+        There is no counter named `nested'
+    )
+        )
+    Please note the preferred layout: The first argument immediately follows
+the function name, then the second argument (the em(true list)) is indented,
+as is the em(false list). The layout closely follows the preferred layout of
+tt(if-else) statements of many programming languages. 
+

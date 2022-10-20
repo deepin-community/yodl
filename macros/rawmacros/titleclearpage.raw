@@ -1,0 +1,13 @@
+<STARTDOC>
+macro(titleclearpage())
+ (Forces a new page (using tt(clearpage)) following the title of a
+document. This is already the default in books and reports, but can be
+overruled using tt(notitleclearpage). When present, it must appear in the
+em(preamble), i.e., before the document type is stated as article, book or
+report.
+ )
+<>
+DEFINEMACRO(titleclearpage)(0)(\
+    SETSYMBOL(XXtitleclearpage)()\
+)
+

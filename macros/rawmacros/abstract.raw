@@ -1,0 +1,12 @@
+<STARTDOC>
+macro(abstract(text))
+ (Defines an abstract for an article or report type of document. Abstracts are
+not implemented for books or manpages. Must appear bf(before) starting the
+document using the tt(article) or tt(report) macro.
+ )
+<>
+
+DEFINEMACRO(abstract)(1)(\
+    SETSYMBOL(XXabstracttext)(ARG1)\
+)
+

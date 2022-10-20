@@ -1,0 +1,123 @@
+  
+COMMENT(*** Standard translation table. ***)
+
+DEFINECHARTABLE(standard)(
+    '#'     = "\\#"
+    '$'     = "\\$"
+    '%'     = "\\%"
+    '_'     = "\\_"
+    '^'     = "\\textasciicircum{}"
+    '\\'    = "\\textbackslash{}"
+    '{'     = "\\{"
+    '}'     = "\\}"
+    '['     = "{[}"
+    ']'     = "{]}"
+    '<'     = "$<$"
+    '>'     = "$>$"
+    '*'     = "$*$"
+    '&'     = "\\&"
+    '~'     = "\\textasciitilde{}"
+    '|'     = "\\textbar{}"
+)
+
+COMMENT(*** Accent characters. ***
+    Note: chars such as ü are handled by the xlatin1.tex conversion.
+
+    Note: can't use \ss{} for the latex conversion, since that will take us
+    in an eternal loop: \ss being replaced by \ss{} -> \ss{}{} -> ...
+)
+
+SUBST(\ss)(+NOTRANS(\s)NOTRANS(s{}))
+
+SUBST(\'a)(+NOTRANS(\'{a}))
+SUBST(\`a)(+NOTRANS(\`{a}))
+SUBST(\"a)(+NOTRANS(\"{a}))
+SUBST(\^a)(+NOTRANS(\^{a}))
+SUBST(\~a)(+NOTRANS(\~{a}))
+SUBST(\oa)(+NOTRANS({\aa}))
+
+SUBST(\'e)(+NOTRANS(\'{e}))
+SUBST(\`e)(+NOTRANS(\`{e}))
+SUBST(\"e)(+NOTRANS(\"{e}))
+SUBST(\^e)(+NOTRANS(\^{e}))
+SUBST(\~e)(+NOTRANS(\~{e}))
+SUBST(\oe)(+NOTRANS(\o{e}))
+
+SUBST(\'i)(+NOTRANS(\'{\i}))
+SUBST(\`i)(+NOTRANS(\`{\i}))
+SUBST(\"i)(+NOTRANS(\"{\i}))
+SUBST(\^i)(+NOTRANS(\^{\i}))
+SUBST(\~i)(+NOTRANS(\~{\i}))
+SUBST(\oi)(+NOTRANS(\o{\i}))
+
+SUBST(\~n)(+NOTRANS(\~{n}))
+
+SUBST(\'o)(+NOTRANS(\'{o}))
+SUBST(\`o)(+NOTRANS(\`{o}))
+SUBST(\"o)(+NOTRANS(\"{o}))
+SUBST(\^o)(+NOTRANS(\^{o}))
+SUBST(\~o)(+NOTRANS(\~{o}))
+SUBST(\oo)(+NOTRANS(\o{o}))
+SUBST(\/o)(+NOTRANS(\o{}))
+
+SUBST(\'u)(+NOTRANS(\'{u}))
+SUBST(\`u)(+NOTRANS(\`{u}))
+SUBST(\"u)(+NOTRANS(\"{u}))
+SUBST(\^u)(+NOTRANS(\^{u}))
+SUBST(\~u)(+NOTRANS(\~{u}))
+SUBST(\ou)(+NOTRANS(\o{u}))
+
+SUBST(\'y)(+NOTRANS(\'{y}))
+SUBST(\`y)(+NOTRANS(\`{y}))
+SUBST(\"y)(+NOTRANS(\"{y}))
+SUBST(\^y)(+NOTRANS(\^{y}))
+SUBST(\~y)(+NOTRANS(\~{y}))
+SUBST(\oy)(+NOTRANS(\o{y}))
+
+SUBST(\'A)(+NOTRANS(\'{A}))
+SUBST(\`A)(+NOTRANS(\`{A}))
+SUBST(\"A)(+NOTRANS(\"{A}))
+SUBST(\^A)(+NOTRANS(\^{A}))
+SUBST(\~A)(+NOTRANS(\~{A}))
+SUBST(\oA)(+NOTRANS({\AA}))
+
+SUBST(\'E)(+NOTRANS(\'{E}))
+SUBST(\`E)(+NOTRANS(\`{E}))
+SUBST(\"E)(+NOTRANS(\"{E}))
+SUBST(\^E)(+NOTRANS(\^{E}))
+SUBST(\~E)(+NOTRANS(\~{E}))
+SUBST(\oE)(+NOTRANS(\o{E}))
+
+SUBST(\'I)(+NOTRANS(\'{I}))
+SUBST(\`I)(+NOTRANS(\`{I}))
+SUBST(\"I)(+NOTRANS(\"{I}))
+SUBST(\^I)(+NOTRANS(\^{I}))
+SUBST(\~I)(+NOTRANS(\~{I}))
+SUBST(\oI)(+NOTRANS(\o{I}))
+
+SUBST(\~N)(+NOTRANS(\~{N}))
+
+SUBST(\'O)(+NOTRANS(\'{O}))
+SUBST(\`O)(+NOTRANS(\`{O}))
+SUBST(\"O)(+NOTRANS(\"{O}))
+SUBST(\^O)(+NOTRANS(\^{O}))
+SUBST(\~O)(+NOTRANS(\~{O}))
+SUBST(\oO)(+NOTRANS(\o{O}))
+SUBST(\/O)(+NOTRANS(\O{}))
+
+SUBST(\'U)(+NOTRANS(\'{U}))
+SUBST(\`U)(+NOTRANS(\`{U}))
+SUBST(\"U)(+NOTRANS(\"{U}))
+SUBST(\^U)(+NOTRANS(\^{U}))
+SUBST(\~U)(+NOTRANS(\~{U}))
+SUBST(\oU)(+NOTRANS(\o{U}))
+
+SUBST(\'Y)(+NOTRANS(\'{Y}))
+SUBST(\`Y)(+NOTRANS(\`{Y}))
+SUBST(\"Y)(+NOTRANS(\"{Y}))
+SUBST(\^Y)(+NOTRANS(\^{Y}))
+SUBST(\~Y)(+NOTRANS(\~{Y}))
+SUBST(\oY)(+NOTRANS(\o{Y}))
+
+SUBST(--)(+NOTRANS(-{}-{}))
+

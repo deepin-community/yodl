@@ -1,0 +1,40 @@
+<STARTDOC>
+macro(verb(text))
+ (Sets tt(text) in verbatim mode: not subject to macro expansion or character
+table expansion, and starting with Yodl version 4.00.00: not using tt(SUBST)
+definitions. See also tt(verborg), which does not provide the protection
+against tt(SUBST) definitions.
+
+While converting Yodl-documents to target document types Yodl frequently uses
+the (not further documented) builtin function tt(CHAR(X)XSUBST). In the
+unlikely event that the text tt(XXSUBST+CHAR(40)...CHAR(41)) must be written
+in a document, the sequence
+    verb(
+    XXSUBST++CHAR(C)HAR(40)...CHAR(C)HAR(41)
+    )
+    can be used.
+
+ The text that is passed as argument to the tt(verb)-macro appears literally
+on the output, usually in a teletype font (that depends on the output
+format). This macro is for larger chunks, e.g., listings. 
+
+ When starting the tt(verb+CHAR(40)) macro on a line by itself and writing the
+closing parenthesis on a line by itself then those newlines also appear in the
+resulting verbatim text. To omit those lines immediately start the first line
+of text after tt(verb) and append the closing parenthesis to the last line of
+verbatim text. E.g.,
+    verb(verb(    First line of indented literal text
+    Last line of indented literal text))
+
+ When unbalanced parameter lists are required, use tt(CHAR(C)HAR(40)) to get
+tt(CHAR(40)) and tt(CHAR(C)HAR(41)) to get tt(CHAR(41)).)
+<>
+
+DEFINEMACRO(verb)(1)(\
+    PUSHSUBST(0)\
+    verborg(ARG1)\
+    POPSUBST()\
+)
+
+
+

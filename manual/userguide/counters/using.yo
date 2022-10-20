@@ -1,0 +1,58 @@
+The builtin function  tt(COUNTERVALUE(somecounter)) expands to the value of
+tt(somecounter). E.g., if the current value is 2, then the value 2 is inserted
+into the output object. It is an error to use tt(COUNTERVALUE) on a
+non-existing counter or on a counter not having a defined value (see below).
+
+Yodl has several functions to modify and/or to set the values of counters. The
+counter's value, named tt(expression) below, is an additive expression: it may
+contain binary + and unary or binary - operators. The operands may be integral
+values of the names of existing counters. Additive expressions may not
+contain blank spaces.
+
+    The functions modifying values of counters are:    
+    itemization(
+    it() tt(POPCOUNTER(somecounter)): This function pops the most recently
+pushed value off the counter's stack, assigning it to tt(somecounter). An
+error occurs when tt(somecounter) doesn't exist. If the counter was never
+pushed, it still exists following tt(POPCOUNTER), but its value is
+undefined: using tt(COUNTERVALUE(somecounter)) in that case generates an
+error. 
+
+    it() tt(PUSHCOUNTER(somecounter)(expression)): This function pushes the
+current value of the counter tt(somecounter) on the counter's stack, making
+tt(expression's) value its new value. Its second argument may be empty in
+which case the counter is initialized to 0. When tt(somecounter) doesn't yet
+exist, it is created with an initial value of tt(expression).
+
+    it() tt(SETCOUNTER(somecounter)(expression)): This function sets the value
+of tt(somecounter) to tt(expression's) value. The function does not expand to
+anything; i.e., it does not write to the output file.
+
+    it() tt(ADDTOCOUNTER(somecounter)(expression)): This function adds
+tt(expression's) value to tt(somecounter).
+
+    it() tt(USECOUNTER(somecounter)): This function first increments
+tt(somecounter's) value, and then writes the value of the counter to the
+output file.
+    
+    This function is particularly useful in combination with
+tt(DEFINECOUNTER): since tt(DEFINECOUNTER) initializes a counter to zero,
+tt(USECOUNTER) can be used to increment the value and to output it. The first
+time that tt(USECOUNTER) is used on a new counter, the value 1 appears on
+the output file. The next time, expression 2 appears on the output file etc..
+    )
+
+Given the numbering requirements of the hypothetical commands tt(section) and
+tt(subsection) (see the previous section), we can now complete the
+definitions:
+
+verb(\
+DEFINECOUNTER(sectcounter)
+DEFINECOUNTER(subsectcounter)
+
+DEFINEMACRO(section)(1)(\ 
+SETCOUNTER(subsectcounter)(0)\ 
+USECOUNTER(sectcounter) ARG1)
+
+DEFINEMACRO(subsection)(1)(\ 
+COUNTERVALUE(sectcounter).USECOUNTER(subsectcounter) ARG1))

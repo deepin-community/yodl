@@ -1,0 +1,79 @@
+In YODL Version 4.02.00 several new features were introduced.
+
+    itemization(
+    it() Three new builtin commands were implemented:
+        description(
+        dit(STRLEN) returns the length of its argument, or the length of a
+            symbol's text if the symbol's name is passed as argument to
+            tt(STRLEN). 
+        dit(SUBSTR) returns a substring of a specified length, starting at a
+            specified offset of its first argument (or returns a substring
+            of a symbol's text if the symbol's name is passed as argument to
+            tt(SUBSTR)).
+        )
+
+    it() End-of-line comment is now available as the triplet
+        tt(\)tt(//). Following tt(\)tt(//) all subsequent characters on its
+        line as well as initial blanks on the next line are skipped.
+
+    it() Redesigned tt(yodlverbinsert), which now also concatenates multiple
+        identically marked sections.
+
+    it() Added the nbsp() macro, writing a non-breaking space character.
+
+    it() Added the macro `tt(tbl') (and support macros `tt(tr, tc, tnc, ta,
+        tnac)' and `tt(tline)') as alternative to `tt(table)' (and support
+        macros). The `tt(tbl)' macro extends `tt(table)', and simplifies
+        defining tables.
+    )
+
+
+In YODL Version 4.00.00 some old features were removed, and several new ones
+were introducted.
+
+    itemization(
+    it() The following builtin commands, considered obsolete since YODL
+        2.00.00, were removed:
+        description(
+        dit(DUMMY) no replacement.
+        dit(ENDDEF) DECWSLEVEL should be used;
+        dit(INCLUDELIT) NOEXPANDINCLUDE should be used;
+        dit(NEWCOUNTER) DEFINECOUNTER should be used;
+        dit(STARTDEF) INCWSLEVEL should be used;
+        dit(UNDEFINEMACRO) DELETEMACRO should be used;
+        dit(WRITEOUT) FPUTS should be used;
+        )
+
+    it() Three new builtin commands were implemented:
+        description(
+        dit(PUSHSUBST) allows temporary suppression (or activation) of
+            tt(SUBST) definitions;
+        dit(POPSUBS) restores the activation type of tt(SUBST) definitions
+        that was active just before the last tt(PUSHSUBST) call;
+        dit(XXSUBST) internally used builtin command.
+        )    
+
+    it() The tt(verb) macro now starts with tt(PUSHSUBST(0)) and ends with
+        tt(POPSUBST()).
+
+    it() The following macros, considered obsolete since YODL
+        2.00.00, were removed:
+        tt(
+        endcenter
+        enddit
+        endeit
+        endit
+        endmenu
+        endtable
+        itemize
+        menu
+        mit
+        node
+        startcenter
+        startdit
+        starteit
+        startit
+        startmenu
+        starttable
+        )
+    )

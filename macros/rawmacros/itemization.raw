@@ -1,0 +1,39 @@
+<STARTDOC>
+macro(itemization(list))
+(Sets tt(list) as an itemizationd list. Use tt(it()) to indicate items in the
+list.)
+<>
+
+DEFINEMACRO(itemization)(1)(\
+<html>
+    NOTRANS(<ul>)\
+<latex>
+    NOTRANS(\begin{itemize})\
+<man>
+    ADDTOCOUNTER(XXinlist)(1)\
+<texinfo>
+    NOTRANS(@itemize @bullet)\
+<sgml>
+    NOTRANS(<itemize>)\
+<xml>
+    XXmlendp()\
+    NOTRANS(<ul>)\
+    PUSHCOUNTER(XXused)(0)\
+<>
+    ARG1\
+<html>
+    +NOTRANS(</ul>)\
+<latex>
+    +NOTRANS(\end{itemize})\
+<man>
+    +ADDTOCOUNTER(XXinlist)(-1)\
+<sgml>
+    +NOTRANS(</itemize>)\
+<texinfo>
+    +NOTRANS(@end itemize)\
+<xml>
+    +XXmlEndList()\
+    NOTRANS(</ul>)\
+    POPCOUNTER(XXused)\
+<>
+)

@@ -1,0 +1,25 @@
+<STARTDOC>
+macro(tcell(text))
+ (Roff helper to set a table text-cell, i.e., a paragraph.  For LaTeX()
+special table formatting p{} should be used.
+
+ When using the tt(tbl) macro for defining tables the tt(twrap) macro can be
+used to set table elements in text-blocks (i.e., enclosing text, possibly
+containing newlines in tt(T{) and tt(T}) sequences).
+ )
+<>
+
+DEFINEMACRO(tcell)(1)(\
+<man ms>
+    cell(\
+        NOTRANS(T{)\
+        XXnl()\
+        ARG1\
+        +XXnl()\
+        NOTRANS(T})\
+        XXnl()\
+    )\
+<else>
+    cell(ARG1)\
+<>
+)

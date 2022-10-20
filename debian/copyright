@@ -1,0 +1,39 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: Yodl
+Upstream-Contact: Frank B. Brokken (f.b.brokken@rug.nl)
+Source: https://gitlab.com/fbb-git/yodl
+
+Files: *
+Copyright: 1996-1999 Karel Kubat <karel@icce.rug.nl> (original author),
+      1996-1999, 2004-2021 Frank B. Brokken <f.b.brokken@rug.nl>,
+      1996-1999, Jan Nieuwenhuizen <janneke@gnu.org>
+License: GPL-2+
+
+Files: debian/*
+Copyright: 1998 Jan Nieuwenhuizen <janneke@gnu.org>,
+           1998-1999 Anthony Fok <foka@debian.org>,
+           1999 Scott Hanson <shanson@debian.org>,
+           2001 Steve Kowalik <stevenk@debian.org>,
+           2001-2003,2006 Colin Watson <cjwatson@debian.org>,
+           2004-2019 Frank B. Brokken <f.b.brokken@rug.nl>,
+           2005-2012 George Danchev <danchev@spnet.net>,
+           2006-2021 tony mancill <tmancill@debian.org>
+License: GPL-2+
+
+License: GPL-2+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+    .
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+    .
+    You should have received a copy of the GNU General Public License
+    along with this package; if not, write to the Free Software Foundation,
+    Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
+    .
+    On Debian systems, the complete text of the GNU General
+    Public License can be found in `/usr/share/common-licenses/GPL-2'.

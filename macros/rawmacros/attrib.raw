@@ -1,0 +1,50 @@
+<STARTDOC>
+macro(attrib(text))
+    (In html, pushes tt(text) as an attribute for the next html tag supporting
+tt(attrib).  E.g, to set a blue color and 30 pixel left-hand side margin for a
+section use
+    verb(
+    attrib(style="color:blue;margin-left:30px;")\ 
+    sect(Section name)
+    ) 
+    This results in the html markup+nl()
+    verb(
+    <h1 style="color:blue;margin-left:30px;">Section name</h1>
+    )
+    This macro is only effective with html conversions. It is applied in a
+stack-wise fashion: when multiple tt(attrib) calls are used, then the topmost
+attrib-string is added to the first macro calling the 
+tt(attribinsert) macro, with subsequent macros using subsequent elements on
+the attrib-stack. 
+
+Commonly used attributes are tt(id="idname"), expecting a tt(#idname) CSS
+label in either internal or external CSS specifications, or tt(style="spec")
+(as shown in the example). 
+
+Example: when using
+    verb(
+    attrib(width = "100" height = "100")
+    attrib(id = "#fig")
+    figure(imgfile)(Caption)(IMG)
+    )
+    then the tt(#id) attribute is applied to tt(<figure>), and the tt(width)
+and tt(height) attributes are applied to tt(<img>), which html markup is
+inserted by the tt(figure) macro.
+
+ The tt(attrib) macro is supported by the following predefined macros (between
+parentheses the number of attribute strings that are inserted by these macros;
+if only 1 attribute string is inserted no number is shown): 
+
+tt(bf cell cells center chapter code dashes dit em figure(3) file htmltag
+itdesc lchapter link lref lsect lsubsect lsubsubsect nchapter npart nsect
+nsubsect nsubsubsect paragraph part quote row sc sect strong subs subsect
+subsubsect subsubsubsect sups tableatt tbl tac tc tnac tnc tr tt ttbegin url
+verb verborg verbinclude).
+ )
+<>
+DEFINEMACRO(attrib)(1)(\
+<html>
+    ADDTOCOUNTER(XXattribstacksize)(1)\
+    PUSHSYMBOL(XXattrib)(NOTRANS(ARG1))\
+<>
+)

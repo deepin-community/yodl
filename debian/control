@@ -1,0 +1,51 @@
+Source: yodl
+Section: text
+Priority: optional
+Maintainer: Frank B. Brokken <f.b.brokken@rug.nl>
+Uploaders: George Danchev <danchev@spnet.net>,
+           tony mancill <tmancill@debian.org>
+Homepage: https://gitlab.com/fbb-git/yodl
+Build-Depends: debhelper-compat (= 13),
+            icmake (>= 9.03.01),
+            texlive-latex-base,
+            texlive-plain-generic,
+            texlive-latex-recommended,
+            texlive-latex-extra,
+            ghostscript
+Standards-Version: 4.5.1
+Build-Depends-Indep: cm-super-minimal
+Vcs-Browser: https://salsa.debian.org/debian/yodl
+Vcs-Git: https://salsa.debian.org/debian/yodl.git
+Rules-Requires-Root: no
+
+Package: yodl
+Architecture: any
+Multi-Arch: foreign
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Suggests: yodl-doc
+Description: Your Own Document Language (Yodl) is a pre-document language
+ Yodl is a package that implements a pre-document language and tools to
+ process it.  The idea of Yodl is that you write up a document in a
+ pre-language, then use the tools (e.g. yodl2html) to convert it to some
+ final document language.  Current converters are for HTML, man, LaTeX
+ SGML and texinfo, a poor-man's text converter and an experimental xml
+ converter. Main document types are
+ "article", "report", "book", "manpage" and "letter".
+ The Yodl document language was  designed to be easy to use and extensible.
+
+Package: yodl-doc
+Architecture: all
+Multi-Arch: foreign
+Section: doc
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Documentation for Your Own Document Language (Yodl)
+ Yodl is a package that implements a pre-document language and tools to
+ process it.  The idea of Yodl is that you write up a document in a
+ pre-language, then use the tools (e.g. yodl2html) to convert it to some
+ final document language.  Current converters are for HTML, man, LaTeX
+ SGML and texinfo, a poor-man's text converter and an experimental xml
+ converter. Main document types are
+ "article", "report", "book", "manpage" and "letter".
+ The Yodl document language was  designed to be easy to use and extensible.
+ .
+ This package provides the supplemental documentation for Yodl.

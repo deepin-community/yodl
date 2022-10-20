@@ -1,0 +1,6 @@
+DEFINEMACRO(htmlbodyopt)(2)(\
+<html>
+    ADDTOSYMBOL(XXbodyopt)( ARG1=CHAR(")ARG2+CHAR("))\
+<>
+)
+

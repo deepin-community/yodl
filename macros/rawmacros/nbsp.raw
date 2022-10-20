@@ -1,0 +1,14 @@
+<STARTDOC>
+macro(nbsp(count))
+ (Inserts tt(count) `non-breaking space' characters into the generated output;
+i.e., the space character is not optimized away. If the argument list is empty
+one non-breaking space is inserted.
+ )
+<>
+DEFINEMACRO(nbsp)(1)(\
+    IFEMPTY(ARG1)(\
+        XXnbsp(1)\
+    )(\
+        XXnbsp(ARG1))\
+)
+

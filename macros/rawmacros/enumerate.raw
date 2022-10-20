@@ -1,0 +1,3 @@
+DEFINEMACRO(enumerate)(1)(\
+    enumeration(ARG1)\
+)
